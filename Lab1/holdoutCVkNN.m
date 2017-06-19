@@ -1,7 +1,7 @@
 function [k, Vm, Vs, Tm, Ts] = holdoutCVkNN(X, Y, perc, nrep, intK)
 % X: the dataset (test set excluded)
 % Y: the labels (test set excluded)
-% perc: percentage of the dataset to be used for validation
+% perc: percentage of the dataset to be used for validation (in [0,100])
 % nrep: number of repetitions of the test for each couple of parameters
 % intK: list of regularization parameters
 %       for example intK = [1 3 5 7 9 11 17 21 31 41 51 71]
@@ -21,12 +21,17 @@ function [k, Vm, Vs, Tm, Ts] = holdoutCVkNN(X, Y, perc, nrep, intK)
 % errorbar(intK, Vm, sqrt(Vs), 'b');
 % hold on
 % errorbar(intK, Tm, sqrt(Ts), 'r');
+    if perc < 1
+        disp('Warning: percent is in the range [0, 100], not [0, 1]') ;
+    end
 
     nK = numel(intK);
 
     n = size(X,1);
-    ntr = ceil(n*(1-perc));
-
+    ntr = ceil(n * (1 - perc / 100));
+    if n * perc / 100 < 1
+        error('0 points in the validation set, cannot validate.')
+    end              
     Tm = zeros(1, nK);
     Ts = zeros(1, nK);
     Vm = zeros(1, nK);
@@ -63,9 +68,10 @@ function [k, Vm, Vs, Tm, Ts] = holdoutCVkNN(X, Y, perc, nrep, intK)
     Vm = Vm/nrep;
     Vs = Vs/nrep - Vm.^2;
 
-    idx = find(Vm <= min(Vm(:)));
-
-    k = intK(idx(1));
+%     idx = find(Vm <= min(Vm(:)));
+%     k = intK(idx(1));
+    [~, argmin] = min(Vm) ;
+    k = intK(argmin) ;
 end
 
 function err = calcErr(T, Y, m)

@@ -34,7 +34,7 @@
             sigmas, n) </span>generates dataset <span style="font-family: Courier New,Courier,monospace;">[X,Y]</span>
             where the <span style="font-family: Courier New,Courier,monospace;">X</span>
             is composed of mixed classes, each class being generated accordingly
-            to a Gaussian distribution with given mean and variance. The points in the dataset
+            to a Gaussian distribution with given mean and standard deviation. The points in the dataset
             <span style="font-family: Courier New,Courier,monospace;">X</span> are enumerated
             from <span style="font-family: Courier New,Courier,monospace;">1</span> to
             <span style="font-family: Courier New,Courier,monospace;">n</span>, and <span style="font-family: Courier New,Courier,monospace;">Y</span>
@@ -42,15 +42,13 @@
             <br>
             <b>Hint:</b> if the commando <span style="font-family: Courier New,Courier,monospace;">help MixGauss</span>
             fails, this probably means that you have not set up correctly your current working directory'
+            <br>
+            Have a look at the code or, for a quick help, type "<span style="font-family: Courier New,Courier,monospace;">help
+            MixGauss</span>" on the Matlab shell.
         </span></li>
         <br>
 
-      <li><span style="font-family: Verdana;"><strong>1.B </strong>Have a look
-          at the code or, for a quick help, type "<span style="font-family: Courier New,Courier,monospace;">help
-            MixGauss</span>" on the Matlab shell. </span></li>
-        <br>
-
-      <li><span style="font-family: Verdana;"><strong>1.C</strong> Type on the
+      <li><span style="font-family: Verdana;"><strong>1.B</strong> Type on the
           Matlab shell the commands</span></li>
     </ul>
     <span style="font-family: Verdana;"> </span>
@@ -62,14 +60,14 @@
           title('dataset 1');</span></span></p>
     <span style="font-family: Verdana;"> </span>
     <ul>
-      <li><span style="font-family: Verdana;"><strong>1.D</strong> Now generate
+      <li><span style="font-family: Verdana;"><strong>1.C</strong> Now generate
           a more complex dataset following the instructions below.
           This dataset will be referred hereafter as <i>training dataset</i>.&nbsp;</span></li>
       <ul>
         <li><span style="font-family: Verdana;">Call MixGauss with appropriate
             parameters and produce a dataset with four classes: the classes must
             live in the 2D space and be centered on the corners of the unit
-            square (0,0), (0,1) (1,1), (1,0), all with variance 0.3. <br>
+            square (0,0), (0,1) (1,1), (1,0), all with standard deviation 0.3. <br>
             The number of points in the dataset is up to you. <br>
             <span style="font-family: Courier New,Courier,monospace;">[Xtr,C]=MixGauss(....)
               </span></span></li>
@@ -87,8 +85,8 @@
          </span></li>
          <br>
       </ul>
-      <li><span style="font-family: Verdana;"><strong>1.E</strong> Following the
-          same procedure as above (section 1.D) generate a new set of data
+      <li><span style="font-family: Verdana;"><strong>1.D</strong> Following the
+          same procedure as above (section 1.C) generate a new set of data
           <span style="font-family: Courier New,Courier,monospace;">[Xte,Yte]</span>  with
           the same distribution, hereafter called <i>test dataset</i>.
       </span></li>
@@ -141,7 +139,7 @@
           <span style="font-family: Verdana;"> </span>
           <div style="margin-left: 80px;"><span style="font-family: Verdana;">
               <span style="font-family: Courier New,Courier,monospace;">
-              sum(Ypred~=Yts) ./ size(Yte,1)
+              sum(Ypred ~= Yte) ./ size(Yte, 1)
         <span style="font-family: Verdana;"> </span>
 
     </ul>

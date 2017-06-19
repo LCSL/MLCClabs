@@ -17,8 +17,13 @@ function Ypred = kNNClassify(Xtr, Ytr, k, Xte)
     n = size(Xtr,1);
     m = size(Xte,1);
     
+    msg = 'Ytr should be an array of +1 and -1';
+    if ~all(abs(Ytr(:)) == 1)
+        error(msg) ;
+    end
     
     if k > n
+        disp('k is greater than number of points n, setting k=n') ;
         k = n;
     end
     
