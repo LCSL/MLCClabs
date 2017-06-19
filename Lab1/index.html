@@ -1,0 +1,239 @@
+<html><head>
+    <meta content="text/html; charset=windows-1252" http-equiv="content-type">
+  </head>
+  <body><span style="font-family: Verdana;"> </span>
+    <h1><span style="font-family: Verdana;"> MLCC - Laboratory 1 - Local methods
+      </span></h1>
+    <span style="font-family: Verdana;"> <br>
+      This lab is about local methods for binary classification on synthetic
+      data. The goal of the lab is to get familiar with the kNN algorithm and to
+      get a practical grasp of what we have discussed in class. Follow the
+      instructions below. Think hard before you call the instructors!<br>
+      <br>
+      Download:<br>
+    </span>
+    <ul>
+      <li><span style="font-family: Verdana;"><a title="lab1 source code" href="./lab1.zip">zipfile</a>
+          (unzip it in a local folder)</span></li>
+      <li><span style="font-family: Verdana;">Matlab <a title="quick introduction to matlab" href="./getstart.pdf">getstart.pdf</a>
+          guide for a quick intro<br>
+        </span></li>
+    </ul>
+<!--
+    %%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%% Data generation %%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%
+-->
+    <span style="font-family: Verdana;"> </span>
+    <h2><span style="font-family: Verdana;">1. Warm up - data generation </span></h2>
+    <span style="font-family: Verdana;"> Open the matlab file <span style="font-family: Courier New,Courier,monospace;">MixGauss.m
+        </span></span><ul>
+
+      <li><span style="font-family: Verdana;"><strong>1.</strong><strong>A</strong>
+          The function <span style="font-family: Courier New,Courier,monospace;">MixGauss(means,
+            sigmas, n) </span>generates dataset <span style="font-family: Courier New,Courier,monospace;">[X,Y]</span>
+            where the <span style="font-family: Courier New,Courier,monospace;">X</span>
+            is composed of mixed classes, each class being generated accordingly
+            to a Gaussian distribution with given mean and variance. The points in the dataset
+            <span style="font-family: Courier New,Courier,monospace;">X</span> are enumerated
+            from <span style="font-family: Courier New,Courier,monospace;">1</span> to
+            <span style="font-family: Courier New,Courier,monospace;">n</span>, and <span style="font-family: Courier New,Courier,monospace;">Y</span>
+            represents the label of each point.
+            <br>
+            <b>Hint:</b> if the commando <span style="font-family: Courier New,Courier,monospace;">help MixGauss</span>
+            fails, this probably means that you have not set up correctly your current working directory'
+        </span></li>
+        <br>
+
+      <li><span style="font-family: Verdana;"><strong>1.B </strong>Have a look
+          at the code or, for a quick help, type "<span style="font-family: Courier New,Courier,monospace;">help
+            MixGauss</span>" on the Matlab shell. </span></li>
+        <br>
+
+      <li><span style="font-family: Verdana;"><strong>1.C</strong> Type on the
+          Matlab shell the commands</span></li>
+    </ul>
+    <span style="font-family: Verdana;"> </span>
+    <p style="margin-left: 80px;"><span style="font-family: Courier New,Courier,monospace;"><span font="courier">[X,
+          Y] = MixGauss([[0;0],[1;1]],[0.5,0.25],50);<br>
+          figure(1); title('dataset 1'); <br>
+          scatter(X(:,1),X(:,2),50,Y,'filled'); %type "help scatter" to see
+          what the parameters mean<br>
+          title('dataset 1');</span></span></p>
+    <span style="font-family: Verdana;"> </span>
+    <ul>
+      <li><span style="font-family: Verdana;"><strong>1.D</strong> Now generate
+          a more complex dataset following the instructions below.
+          This dataset will be referred hereafter as <i>training dataset</i>.&nbsp;</span></li>
+      <ul>
+        <li><span style="font-family: Verdana;">Call MixGauss with appropriate
+            parameters and produce a dataset with four classes: the classes must
+            live in the 2D space and be centered on the corners of the unit
+            square (0,0), (0,1) (1,1), (1,0), all with variance 0.3. <br>
+            The number of points in the dataset is up to you. <br>
+            <span style="font-family: Courier New,Courier,monospace;">[Xtr,C]=MixGauss(....)
+              </span></span></li>
+      </ul>
+      <ul>
+        <li><span style="font-family: Verdana;">Use the Matlab function "<span style="font-family: Courier New,Courier,monospace;">scatter</span>"
+            to plot the training dataset. </span></li>
+      </ul>
+      <ul>
+        <li><span style="font-family: Verdana;">Manipulate the data so to obtain
+            a 2-class problem where data on opposite corners share the same
+            class. <br>
+            If you produced the data following the centers order provided
+            above, you may do: <span style="font-family: Courier New,Courier,monospace;">Ytr = 2*mod(Ytr,2)-1;</span>
+         </span></li>
+         <br>
+      </ul>
+      <li><span style="font-family: Verdana;"><strong>1.E</strong> Following the
+          same procedure as above (section 1.D) generate a new set of data
+          <span style="font-family: Courier New,Courier,monospace;">[Xte,Yte]</span>  with
+          the same distribution, hereafter called <i>test dataset</i>.
+      </span></li>
+    </ul>
+<!--
+    %%%%%%%%%%%%%%%%%%%%%%%%
+    %%%% KNN Classifier %%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%
+-->
+    <span style="font-family: Verdana;"> </span>
+    <h2><span style="font-family: Verdana;"> 2. Core - kNN classifier</span></h2>
+    <span style="font-family: Verdana;"> The k-Nearest Neighbors algorithm (kNN)
+      assigns to a test point the most frequent label among its k closest points/examples
+      in the training set. <br>
+      <br>
+    </span>
+    <ul>
+      <li> <span style="font-family: Verdana;"><strong>2.A</strong> Have a look
+          at the code of function <span style="font-family: Courier New,Courier,monospace;">kNNClassify</span>
+          (for a quick reference type "<span style="font-family: Courier New,Courier,monospace;">help
+            kNNClassify</span>" on the Matlab command prompt)</span></li>
+            <br>
+      <li><span style="font-family: Verdana;"><strong>2.B</strong> Use
+          kNNClassify on the previously generated 2-class data from section 1.D.
+          Pick a "reasonable" <span style="font-family: Courier New,Courier,monospace;">k</span>.
+          Below we propose three ways of evaluating the quality
+          of the prediction made by the kNN method. Try them and see the
+          influence of the parameter <span style="font-family: Courier New,Courier,monospace;">k</span>&nbsp;
+      </span></li>
+     <br>
+      <li><span style="font-family: Verdana;"><strong>2.C1</strong> [Evaluating the prediction] Plot the test data
+          <span style="font-family: Courier New,Courier,monospace;">Xte</span> twice. Once with its true labels
+          <span style="font-family: Courier New,Courier,monospace;">Yte</span>, and once with the predicted labels
+          <span style="font-family: Courier New,Courier,monospace;">Ypred</span>.&nbsp;
+           A possible way is:</span></li>
+    </ul>
+    <span style="font-family: Verdana;"> </span>
+    <div style="margin-left: 80px;"><span style="font-family: Verdana;"> <span style="font-family: Courier New,Courier,monospace;">figure;<br>
+          scatter(Xte(:,1),Xte(:,2),50,Yte,'filled'); %plot test points (filled
+          circles) associating a different color to each "true" label<br>
+          hold on<br>
+          scatter(Xte(:,1),Xte(:,2),70,Ypred,'o'); % plot test points (empty circles)
+          associating a different color to each estimated label</span></span></div>
+    <span style="font-family: Verdana;"> </span>
+    <ul>
+      <li> <span style="font-family: Verdana;"><strong>2.C2</strong> [Evaluating the prediction] To compute
+          the classification error percentage compare the estimated outputs with
+          those previously&nbsp; generated: </span></li>
+          <br>
+          <span style="font-family: Verdana;"> </span>
+          <div style="margin-left: 80px;"><span style="font-family: Verdana;">
+              <span style="font-family: Courier New,Courier,monospace;">
+              sum(Ypred~=Yts) ./ size(Yte,1)
+        <span style="font-family: Verdana;"> </span>
+
+    </ul>
+    <span style="font-family: Verdana;"> </span>
+    <ul>
+      <li> <span style="font-family: Verdana;"><strong>2.C3</strong> [Evaluating the prediction] To visualize
+            the separating function, use the routine <span style="font-family: Courier New,Courier,monospace;">separatingFkNN</span>.
+            You may use <span style="font-family: Courier New,Courier,monospace;">help separatingFkNN</span>
+            in the command prompt or look directly at the code.
+           </span></li>
+    </ul>
+    </div>
+
+    <span style="font-family: Verdana;"> </span>
+
+    <!--
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%% Parameter selection %%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    -->
+    <h2><span style="font-family: Verdana;"> 3. Parameter selection - What is a
+        good value for k? </span></h2>
+    <span style="font-family: Verdana;">
+        So far we considered an arbitrary <span style="font-family: Courier New,Courier,monospace;">k</span>.
+        We now want to inroduce different approaches for selecting it.
+      <br>
+    </span>
+    <ul>
+      <li> <span style="font-family: Verdana;"><strong>3.A</strong> Perform a
+          hold out cross validation procedure on the available training data. <br>
+          You may want to use the function <span style="font-family: Courier New,Courier,monospace;">holdoutCVkNN</span>
+          available on the zip file (here again, type "<span style="font-family: Courier New,Courier,monospace;">help
+            holdoutCVkNN</span>" on the Matlab command prompt, you will find there a useful
+          example of use).<br>
+          Plot the&nbsp; training&nbsp; and validation errors for the different
+          values ok k.
+          <br><br>
+        </span> <span style="font-family: Verdana;"><strong></strong></span></li>
+      <li><span style="font-family: Verdana;"><strong>3.B</strong> Add noise to the
+          data by randomly flipping the labels on the training set, and call it
+          <span style="font-family: Courier New,Courier,monospace;">Ytr noisy</span>.
+          You can use the function <span style="font-family: Courier New,Courier,monospace;">flipLabels</span>
+          to do that. How does the validation error behave now with respect to
+          <span style="font-family: Courier New,Courier,monospace;">k</span> ?
+          <br>
+          <b>Note:</b> Keep track of the best k , and the corresponding validation error. You will
+          need it in <i>3.D</i>.
+        <br><br>
+      </span></li>
+      <li><span style="font-family: Verdana;"><strong>3.C</strong> What happens
+          with different values of p (percentage of points held out) and rep
+          (number of repetitions of the experiment)? </span></li>
+          <br>
+      <li><span style="font-family: Verdana;"><strong>3.D</strong> For now we
+          have been using the training set to obtain a classifier. Now we
+          want to evaluate its performance by applying it to an independent test set.
+          <ul>
+            <li><span style="font-family: Verdana;">Consider the test dataset
+                <span style="font-family: Courier New,Courier,monospace;">[Xte,Yte]</span>
+                generated in point <i>1.E</i>.
+                Add some noise to the dataset by randomly flipping some labels from
+                <span style="font-family: Courier New,Courier,monospace;">Yte</span>.
+                You can use the function <span style="font-family: Courier New,Courier,monospace;">flipLabels</span>
+                to create <span style="font-family: Courier New,Courier,monospace;">[Xte,Yte_noisy]</span>.</span>
+            <li><span style="font-family: Verdana;">Take the best
+                <span style="font-family: Courier New,Courier,monospace;">k</span>
+                you obtained by hold out cross validation in <i>3.B</i>, and use it to
+                get a prediction from <span style="font-family: Courier New,Courier,monospace;">Xtr,Ytrnoisy,Xte</span>,
+                as you did in part 2.
+            <li>Evaluate the prediction with respect to Yte noisy (as you did in <i>2.C2</i>),
+                and compare it to the validation error you had in <i>3.B</i>.
+            </span></li>
+          </ul><span style="font-family: Verdana;">
+      </span></li>
+    </ul>
+    <span style="font-family: Verdana;"> </span>
+
+
+    <h2><span style="font-family: Verdana;"> 4. If you have time - More
+        experiments</span></h2>
+    <span style="font-family: Verdana;"> </span>
+    <ul>
+      <li> <span style="font-family: Verdana;"><strong>4.A</strong> Evaluate
+          the results as the size of the training set grows.
+          n=10,20,50,100,300,...&nbsp; (of course k needs to be chosen
+          accordingly)</span></li>
+          <br>
+      <li><span style="font-family: Verdana;"><strong>4.B</strong> Generate more
+          complex datasets with MixGauss function, for instance by choosing
+          larger variance on the data generation part&nbsp;</span></li>
+    </ul>
+    <span style="font-family: Verdana;"> </span>
+
+
+</body></html>

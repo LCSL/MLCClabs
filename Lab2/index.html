@@ -1,0 +1,246 @@
+<html><head>
+    <meta content="text/html; charset=windows-1252" http-equiv="content-type">
+  </head>
+  <body> <font face="verdana">
+      <h1> MLCC - Laboratory 2 - Regularization networks </h1>
+      <br>
+      This lab is about Kernel Regularized Least Squares.
+      Follow the instructions below. Think hard before you call the instructors!<br>
+      <br>
+      Download:<br>
+      <ul>
+        <li><span style="font-family: Verdana;">
+          <a title="lab1 source code" href="./lab2.zip">zipfile</a> (unzip it in a local folder)</span>
+        </li>
+      </ul>
+      <h2 class="western" style="margin-top: 0in; margin-bottom: 0in">1.
+Kernel Regularized Least Squares<br><br>
+</h2>
+<ul>
+	<li><p style="margin-bottom: 0in"><b>1.A </b><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font style="font-size: 14pt" size="4"><span style="font-style: normal"><span style="font-weight: normal">Generate
+	a 2-class training set</span></span></font></font></font></span><span style="font-variant: normal"><font color="#000000">
+	</font></span><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font style="font-size: 14pt" size="4"><span style="font-style: normal"><span style="font-weight: normal">by
+	using the following code:</span></span></font></font></font></span></p>
+	<p style="margin-bottom: 0in"><a name="__DdeLink__20_221017911"></a><a name="__DdeLink__31_2113244412"></a>
+	<font face="Courier, sans-serif">[Xtr, Ytr] =
+	MixGauss([[0;0],[1;1]],[0.5,0.3],100); </font>
+	</p>
+	<p style="margin-bottom: 0in"><font face="Courier, sans-serif">[Xts,
+	Yts] = MixGauss([[0;0],[1;1]],[0.5,0.3],100); </font>
+	</p>
+	<p style="margin-bottom: 0in"><font face="Courier, sans-serif">Ytr(Ytr==2)
+	= -1; </font>
+	</p>
+	<p style="margin-bottom: 0in"><font face="Courier, sans-serif">Yts(Yts==2)
+	= -1;<br></font><br>
+	</p>
+	</li><li><p style="margin-bottom: 0in"><a name="__DdeLink__30_160019098"></a>
+	<font color="#000000"><font face="Times New Roman, serif"><font style="font-size: 12pt" size="3"><b>1.B
+	</b></font></font></font><font color="#000000"><font face="Times New Roman, serif"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">Have
+	a look at the code of functions </span></font></font></font><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">regularizedKernLSTrain</span></font></font></font><font color="#000000">
+	</font><font color="#000000"><font face="Times New Roman, serif"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">and
+	</span></font></font></font><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">regularizedKernLSTest</span></font></font></font><font color="#000000"><font face="Times New Roman, serif"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">.<br></span></font></font></font><br>
+	</p>
+	</li><li><p style="margin-bottom: 0in"><a name="__DdeLink__22_221017911"></a>
+	<b>1.C </b><span style="font-weight: normal"><font face="Times New Roman, serif">Check how the
+	separating function changes with respect to lambda and sigma. Use
+	the Gaussian kernel (</font></span><font face="Times New Roman, serif"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">kernel='gaussian'</span></font></font></font><span style="font-weight: normal">)
+	and try some regularization parameters, with sigma in [0.1, 10] and
+	lambda in [1e-10, 10]. To visualize the separating function (and thus
+	get a more general view of what areas are associated with each
+	class) you may use the routine <font face="Courier, monospace"><span style="font-weight: normal">separatingFKernRLS</span></font> (type "</span><font face="Courier, monospace"><span style="font-weight: normal">help
+	separatingFKernRLS</span></font><span style="font-weight: normal">"
+	on the Matlab shell, if you still have doubts on how to use it, have
+	a look at the code)</span></font>. <br><br>
+	</p>
+	</li><li><p style="margin-bottom: 0in"><a name="__DdeLink__70_1600190981"></a><a name="__DdeLink__24_221017911"></a>
+	<font style="font-size: 12pt" size="3"><font color="#000000"><font face="Times New Roman, serif"><b>1.D</b></font></font><font color="#000000">
+	</font><font color="#000000"><font face="Times New Roman, serif"><span style="font-weight: normal">Perform
+	the same experiment by using flipped labels</span></font></font><font color="#000000">
+	</font><font color="#000000"><font face="lucidatypewriter, serif"><span style="font-weight: normal">(</span></font></font><font color="#000000"><font face="Courier, monospace"><span style="font-weight: normal">Ytrn
+	= flipLabels(Ytr, p)</span></font></font><font color="#000000"><font face="lucidatypewriter, serif"><span style="font-weight: normal">)
+	</span></font></font><font color="#000000"><font face="Times New Roman, serif"><span style="font-weight: normal">with
+	p equal to 0.05 and 0.1. Check how the</span></font></font><font color="#000000">
+	</font><font color="#000000"><font face="Times New Roman, serif"><span style="font-weight: normal">separating
+	function changes</span></font></font><font color="#000000"> </font><font color="#000000"><font face="Times New Roman, serif"><span style="font-weight: normal">with
+	respect to lambda.<br></span></font></font></font><br>
+	</p>
+	</li><li><p style="margin-bottom: 0in"><a name="__DdeLink__26_221017911"></a>
+	<font style="font-size: 12pt" size="3"><font color="#000000"><font face="Times New Roman, serif"><b>1.E</b></font></font><font color="#000000">
+	</font><font color="#000000"><font face="Times New Roman, serif"><span style="font-weight: normal">Load
+	the Two moons dataset by using the command </span></font></font><font color="#000000"><font face="Courier, monospace"><span style="font-weight: normal">[Xtr,
+	Ytr, Xts, Yts] = two_moons(npoints, pflipped)</span></font></font><font color="#000000">
+	</font><font color="#000000"><font face="Times New Roman, serif"><span style="font-weight: normal">where
+	</span></font></font><font color="#000000"><font face="Courier, monospace"><span style="font-weight: normal">npoints</span></font></font><font color="#000000">
+	</font><font color="#000000"><font face="Times New Roman, serif"><span style="font-weight: normal">is
+	the number of points in the dataset (between 1 and 100) and </span></font></font><font color="#000000"><font face="Courier, monospace"><span style="font-weight: normal">pflip</span></font></font><font color="#000000">
+	</font><font color="#000000"><font face="Times New Roman, serif"><span style="font-weight: normal">is
+	the fraction of flipped labels. Then visualize the training and the
+	test set by the following lines.</span></font></font></font></p>
+	<p style="margin-bottom: 0in"><a name="__DdeLink__28_221017911"></a><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">figure;</font></font></font></p>
+	<p style="margin-bottom: 0in"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">scatter(Xtr(:,1),
+	Xtr(:,2), 50, Ytr, 'filled')</font></font></font></p>
+	<p style="margin-bottom: 0in"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">figure;</font></font></font></p>
+	<p style="margin-bottom: 0in; font-weight: normal"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">scatter(Xts(:,1),
+	Xts(:,2), 50, Yts, 'filled')<br></font></font></font><br>
+	</p>
+	</li><li><p style="margin-bottom: 0in"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3"><font face="Times New Roman, serif"><b>1.F
+	</b></font><font face="Times New Roman, serif"><span style="font-weight: normal">Perform
+	the exercises 1.C </span></font><font face="Times New Roman, serif"><span style="font-weight: normal">and</span></font><font face="Times New Roman, serif"><span style="font-weight: normal">
+	1.D on this dataset.</span></font></font></font></font></p>
+</li></ul>
+<p style="margin-bottom: 0in"><br>
+</p>
+<p style="margin-bottom: 0in"><br>
+</p>
+<h2 class="western" style="margin-top: 0in; margin-bottom: 0in">2.
+Parameter Selection<br><br>
+</h2>
+<ul>
+	<li><p style="margin-bottom: 0in"><a name="__DdeLink__33_160019098"></a><a name="__DdeLink__32_221017911"></a>
+	<strong>2.A</strong> <font face="Times New Roman">By using the dataset in 1.E with 100 points and
+	0.05 flipped labels, select the suitable lambda, by using
+	<font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">holdoutCVKernRLS</span></font></font></font><font color="#000000">
+	</font><font color="#000000"><font face="Times New Roman, serif"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">(see</span></font></font></font><font color="#000000">
+	</font><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">help
+	holdoutCVKernRLS</span></font></font></font><font color="#000000">
+	</font><font color="#000000"><font face="Times New Roman, serif"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">for
+	more informations), and the sequence</span></font></font></font></font></p><font face="Times New Roman">
+	<p style="margin-bottom: 0in; font-weight: normal"><a name="__DdeLink__30_221017911"></a>
+	<font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">intKerPar
+	= 0.5; </font></font></font>
+	</p>
+	<p style="margin-bottom: 0in; font-weight: normal"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">intLambda
+	= [5, 2, 1, 0.7, 0.5, 0.3, 0.2, 0.1, 0.05, 0.02, 0.01, 0.005, 0.002,
+	0.001, 0.0005, 0.0002, 0.0001,0.00001,0.000001];</font></font></font></p>
+	<p style="margin-bottom: 0in; font-weight: normal"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">nrip
+	= 51;</font></font></font></p>
+	<p style="margin-bottom: 0in; font-weight: normal"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">perc
+	= 0.5;<br></font></font></font><br>
+	</p>
+	<p style="margin-bottom: 0in; font-weight: normal"><font color="#000000"><font face="Times New Roman, serif"><font style="font-size: 12pt" size="3">Then
+	plot the validation error and the test error with respect to the
+	choice of lambda by the following code. (The x-axis has a
+	logarithmic scale)</font></font></font></p>
+	<p style="margin-bottom: 0in; font-weight: normal"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">figure;</font></font></font></p>
+	<p style="margin-bottom: 0in"><font face="Courier, monospace"><font style="font-size: 12pt" size="3"><font color="#000000"><span style="font-weight: normal">semilogx(intLambda,
+	Tm, </span></font><font color="#a020f0">'r'</font><font color="#000000">);</font></font></font></p>
+	<p style="margin-bottom: 0in"><font face="Courier, monospace"><font style="font-size: 12pt" size="3"><font color="#000000">hold
+	</font><font color="#a020f0">on;</font></font></font></p>
+	<p style="margin-bottom: 0in"><font face="Courier, monospace"><font style="font-size: 12pt" size="3"><font color="#000000">semilogx(intLambda,
+	Vm, </font><font color="#a020f0">'b'</font><font color="#000000">);</font></font></font></p>
+	<p style="margin-bottom: 0in"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">hold
+	off;</font></font></font></p>
+	<p style="margin-bottom: 0in"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">legend('Training','Validation');<br></font></font></font><br>
+	</p>
+	</font></li><li><p style="margin-bottom: 0in"><font face="Times New Roman"><a name="__DdeLink__70_160019098"></a><a name="__DdeLink__34_221017911"></a>
+	<font style="font-size: 12pt" size="3"><font color="#000000"><font face="Times New Roman, serif"><b>2.B</b></font></font><font color="#000000">
+	</font><font color="#000000"><font face="Times New Roman, serif">Perform
+	the same experiment for different fraction of flipped labels (0.0,
+	0.05, 0.1, 0.2, 0.3, 0.4, 0.5).</font></font><font color="#000000">
+	</font><font color="#000000"><font face="Times New Roman, serif">Check
+	how the training and validation error</font></font><font color="#000000">
+	</font><font color="#000000"><font face="Times New Roman, serif">change
+	with different p.<br></font></font></font><br>
+	</font></p><font face="Times New Roman">
+</font></li></ul><font face="Times New Roman">
+<ul>
+	<li><p style="margin-bottom: 0in"><strong>2.C</strong> Now select
+	the suitable sigma, by using <font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">holdoutCVKernRLS</span></font></font></font>,
+	on the following collection, as in exercise 2.A. Then plot the
+	validation and test error.</p>
+	<p style="margin-bottom: 0in; font-weight: normal"><a name="__DdeLink__39_221017911"></a><a name="__DdeLink__37_221017911"></a>
+	<font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">intKerPar
+	= [10, 7, 5, 4, 3, 2.5, 2.0, 1.5, 1.0, 0.7, 0.5, 0.3, 0.2, 0.1,
+	0.05, 0.03, 0.02, 0.01]; </font></font></font>
+	</p>
+	<p style="margin-bottom: 0in; font-weight: normal"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">intLambda
+	= 0.00001;</font></font></font></p>
+	<p style="margin-bottom: 0in; font-weight: normal"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">nrip
+	= 51;</font></font></font></p>
+	<p style="margin-bottom: 0in; font-weight: normal"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">perc
+	= 0.5;<br></font></font></font><br>
+	</p>
+	</li><li><p style="margin-bottom: 0in"><a name="__DdeLink__76_160019098"></a>
+	<font face="Courier, monospace"><font style="font-size: 12pt" size="3"><font color="#000000"><font face="Times New Roman, serif"><b>2.D</b></font></font><font color="#000000">
+	</font><font color="#000000"><font face="Times New Roman, serif">Perform
+	the same experiment for different fraction of flipped labels (0.0,
+	0.05, 0.1, 0.2, 0.3, 0.4, 0.5).</font></font><font color="#000000">
+	</font><font color="#000000"><font face="Times New Roman, serif"><span style="font-weight: normal">Check
+	how the training and validation error</span></font></font><font color="#000000">
+	</font><font color="#000000"><font face="Times New Roman, serif"><span style="font-weight: normal">change
+	with different p.<br></span></font></font></font></font><br>
+	</p>
+</li></ul>
+<ul>
+	<li><p style="margin-bottom: 0in"><strong>2.E </strong><font color="#000000"><font face="Times New Roman, serif"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">Now
+	select the best lambda and sigma, by using </span></font></font></font><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">holdoutCVKernRLS</span></font></font></font><font color="#000000"><font face="Times New Roman, serif"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">,
+	on the following collection, as in exercise </span></font></font></font><font color="#000000"><font face="Times New Roman, serif"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">2.A</span></font></font></font><font color="#000000"><font face="Times New Roman, serif"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">.
+	</span></font></font></font>
+	</p>
+	<p style="margin-bottom: 0in; font-weight: normal"><a name="__DdeLink__41_221017911"></a><a name="__DdeLink__7_1073887086"></a>
+	<font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">intKerPar
+	= [10, 7, 5, 4, 3, 2.5, 2.0, 1.5, 1.0, 0.7, 0.5, 0.3, 0.2, 0.1,
+	0.05, 0.03, 0.02, 0.01];</font></font></font></p>
+	<p style="margin-bottom: 0in; font-weight: normal"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">intLambda
+	= [5, 2, 1, 0.7, 0.5, 0.3, 0.2, 0.1, 0.05, 0.02, 0.01, 0.005, 0.002,
+	0.001, 0.0005, 0.0002, 0.0001,0.00001,0.000001];</font></font></font></p>
+	<p style="margin-bottom: 0in; font-weight: normal"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">nrip
+	= 7;</font></font></font></p>
+	<p style="margin-bottom: 0in; font-weight: normal"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">perc
+	= 0.5;</font></font></font></p>
+	<p style="margin-bottom: 0in"><a name="__DdeLink__81_160019098"></a><a name="__DdeLink__43_221017911"></a>
+	<font face="Courier, monospace"><font style="font-size: 12pt" size="3"><font color="#000000"><font face="Times New Roman, serif"><span style="font-weight: normal">Then
+	plot the separating function computed with the best lambda and sigma
+	you have found. (use </span></font></font><font color="#000000"><span style="font-weight: normal">separatingFKernRLS</span></font><font color="#000000"><font face="Times New Roman, serif"><span style="font-weight: normal">).<br></span></font></font></font></font><br>
+	</p>
+	</li><li><p style="margin-bottom: 0in"><font face="Courier, monospace"><font style="font-size: 12pt" size="3"><font color="#000000"><font face="Times New Roman, serif"><b>2.F</b></font></font><font color="#000000">
+	</font><font color="#000000"><font face="Times New Roman, serif"><span style="font-weight: normal">Compute
+	the best lambda and sigma, and plot the related separating functions
+	with 0%, 5%, 10%, 20%, 30%, 40%</span></font></font><font color="#000000">
+	</font><font color="#000000"><font face="Times New Roman, serif"><span style="font-weight: normal">of
+	flipped labels. How do the parameters differ, and the curves?</span></font></font></font></font></p>
+</li></ul>
+<p style="margin-bottom: 0in"><br>
+</p>
+<p style="margin-bottom: 0in"><br>
+</p>
+<h2 class="western" style="margin-top: 0in; margin-bottom: 0in">3. If
+you have time - More experiments<br><br>
+</h2>
+<ul>
+	<li><p style="margin-bottom: 0in"><strong>3.A</strong> Repeat the
+	experiment in section 2, with less points (70, 50, 30, 20) and 5% of
+	flipped labels.
+	</p>
+	<p style="margin-bottom: 0in">How do the parameters vary with
+	respect to the number of points?<br><br>
+	</p>
+	</li><li><p style="margin-bottom: 0in"><a name="__DdeLink__1_1642346493"></a>
+	<strong>3.B</strong> <strong><span style="font-weight: normal">Repeat
+	the experiment in section 1 with the polynomial kernel (</span></strong><strong><font face="Courier, monospace"><span style="font-weight: normal">kernel
+	= 'polynomial'</span></font></strong><strong><span style="font-weight: normal">)
+	and with parameters lambda in the interval [10, 0] and p, the
+	exponent of the polynomial kernel, in {10,9,...,1}. <br></span></strong><br>
+	</p>
+	</li><li><p style="margin-bottom: 0in"><strong><b>3.C</b></strong><strong>
+	</strong><strong><span style="font-weight: normal">Perform the
+	Exercise 2.F</span></strong><strong> </strong><strong><span style="font-weight: normal">with
+	the polynomial kernel and the following range of parameters.</span></strong></p>
+	<p style="margin-bottom: 0in; font-weight: normal"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">IntKerPar
+	= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];</font></font></font></p>
+	<p style="margin-bottom: 0in"><strong><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">intLambda
+	= [5, 2, 1, 0.7, 0.5, 0.3, 0.2, 0.1, 0.05, 0.02, 0.01, 0.005, 0.002,
+	0.001, 0.0005, 0.0002, 0.0001,0.00001,0.000001];</span></font></font></font></strong></p>
+	<p style="margin-bottom: 0in"><strong><span style="font-weight: normal">What
+	is the best exponent for the polynomial kernel on this problem? Why?
+	<br></span></strong><br>
+	</p>
+	</li><li><p style="margin-bottom: 0in"><strong><b>3.D</b></strong><strong>
+	</strong><strong><span style="font-weight: normal">Analyze the
+	eigenvalues of the Gram matrix for the polynomial kernel with
+	different values of p (plot them by using </span></strong><strong><font face="Courier, monospace"><span style="font-weight: normal">semilogy</span></font></strong><strong><span style="font-weight: normal">).
+	What happens with different p? Why?</span></strong></p>
+</li></ul>
+
+</font></font></body></html>
