@@ -20,5 +20,5 @@ function Y=flipLabels(Y,p)
 
     sel = I(1:n_flips);
     % Y(sel) = 1 -1 * Y(sel); This would be the function for 0 and 1 labels
-    Y(sel) = - Y(sel); % For +1 and -1 labels
+    Y(sel) = - Y(sel); % For +1 
 end
