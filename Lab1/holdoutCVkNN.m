@@ -17,7 +17,7 @@ function [k, Vm, Vs, Tm, Ts] = holdoutCVkNN(X, Y, perc, nrep, intK)
 % intK = [1 3 5 7 9 11 17 21 31 41 51 71];
 % [X, Y] = MixGauss([[0;0],[1;1]],[0.5,0.25],1000);
 % Y(Y==2)=-1;
-% [k, Vm, Vs, Tm, Ts] = holdoutCVkNN(X, Y, 0.5, 10, intK);
+% [k, Vm, Vs, Tm, Ts] = holdoutCVkNN(X, Y, 50, 10, intK);
 % errorbar(intK, Vm, sqrt(Vs), 'b');
 % hold on
 % errorbar(intK, Tm, sqrt(Ts), 'r');
@@ -31,7 +31,7 @@ function [k, Vm, Vs, Tm, Ts] = holdoutCVkNN(X, Y, perc, nrep, intK)
     ntr = ceil(n * (1 - perc / 100));
     if n * perc / 100 < 1
         error('0 points in the validation set, cannot validate.')
-    end              
+    end
     Tm = zeros(1, nK);
     Ts = zeros(1, nK);
     Vm = zeros(1, nK);

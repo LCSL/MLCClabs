@@ -39,7 +39,13 @@ Kernel Regularized Least Squares<br><br>
 	</b></font></font></font><font color="#000000"><font face="Times New Roman, serif"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">Have
 	a look at the code of functions </span></font></font></font><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">regularizedKernLSTrain</span></font></font></font><font color="#000000">
 	</font><font color="#000000"><font face="Times New Roman, serif"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">and
-	</span></font></font></font><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">regularizedKernLSTest</span></font></font></font><font color="#000000"><font face="Times New Roman, serif"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">.<br></span></font></font></font><br>
+	</span></font></font></font><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">
+        regularizedKernLSTest</span></font></font></font><font color="#000000">
+            <font face="Times New Roman, serif"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">. Use the former to generate a decision function. <br></span></font></font></font>
+            <p style="margin-bottom: 0in"><a name="__DdeLink__20_221017911"></a><a name="__DdeLink__31_2113244412"></a>
+            <font face="Courier, sans-serif">c = regularizedKernLSTrain(Xtr, Ytr, 'gaussian', sigma, lambda) </font>
+            <br><br>
+            </p>
 	</p>
 	</li><li><p style="margin-bottom: 0in"><a name="__DdeLink__22_221017911"></a>
 	<b>1.C </b><span style="font-weight: normal"><font face="Times New Roman, serif">Check how the
@@ -75,7 +81,7 @@ Kernel Regularized Least Squares<br><br>
 	</font><font color="#000000"><font face="Times New Roman, serif"><span style="font-weight: normal">is
 	the number of points in the dataset (between 1 and 100) and </span></font></font><font color="#000000"><font face="Courier, monospace"><span style="font-weight: normal">pflip</span></font></font><font color="#000000">
 	</font><font color="#000000"><font face="Times New Roman, serif"><span style="font-weight: normal">is
-	the fraction of flipped labels. Then visualize the training and the
+	the percentage of flipped labels. Then visualize the training and the
 	test set by the following lines.</span></font></font></font></p>
 	<p style="margin-bottom: 0in"><a name="__DdeLink__28_221017911"></a><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">figure;</font></font></font></p>
 	<p style="margin-bottom: 0in"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">scatter(Xtr(:,1),
@@ -99,7 +105,7 @@ Parameter Selection<br><br>
 <ul>
 	<li><p style="margin-bottom: 0in"><a name="__DdeLink__33_160019098"></a><a name="__DdeLink__32_221017911"></a>
 	<strong>2.A</strong> <font face="Times New Roman">By using the dataset in 1.E with 100 points and
-	0.05 flipped labels, select the suitable lambda, by using
+	5% flipped labels, select the suitable lambda, by using
 	<font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">holdoutCVKernRLS</span></font></font></font><font color="#000000">
 	</font><font color="#000000"><font face="Times New Roman, serif"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">(see</span></font></font></font><font color="#000000">
 	</font><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3"><span style="font-weight: normal">help
@@ -116,7 +122,7 @@ Parameter Selection<br><br>
 	<p style="margin-bottom: 0in; font-weight: normal"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">nrip
 	= 51;</font></font></font></p>
 	<p style="margin-bottom: 0in; font-weight: normal"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">perc
-	= 0.5;<br></font></font></font><br>
+	= 50;<br></font></font></font><br>
 	</p>
 	<p style="margin-bottom: 0in; font-weight: normal"><font color="#000000"><font face="Times New Roman, serif"><font style="font-size: 12pt" size="3">Then
 	plot the validation error and the test error with respect to the
@@ -159,7 +165,7 @@ Parameter Selection<br><br>
 	<p style="margin-bottom: 0in; font-weight: normal"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">nrip
 	= 51;</font></font></font></p>
 	<p style="margin-bottom: 0in; font-weight: normal"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">perc
-	= 0.5;<br></font></font></font><br>
+	= 50;<br></font></font></font><br>
 	</p>
 	</li><li><p style="margin-bottom: 0in"><a name="__DdeLink__76_160019098"></a>
 	<font face="Courier, monospace"><font style="font-size: 12pt" size="3"><font color="#000000"><font face="Times New Roman, serif"><b>2.D</b></font></font><font color="#000000">
@@ -188,7 +194,7 @@ Parameter Selection<br><br>
 	<p style="margin-bottom: 0in; font-weight: normal"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">nrip
 	= 7;</font></font></font></p>
 	<p style="margin-bottom: 0in; font-weight: normal"><font color="#000000"><font face="Courier, monospace"><font style="font-size: 12pt" size="3">perc
-	= 0.5;</font></font></font></p>
+	= 50;</font></font></font></p>
 	<p style="margin-bottom: 0in"><a name="__DdeLink__81_160019098"></a><a name="__DdeLink__43_221017911"></a>
 	<font face="Courier, monospace"><font style="font-size: 12pt" size="3"><font color="#000000"><font face="Times New Roman, serif"><span style="font-weight: normal">Then
 	plot the separating function computed with the best lambda and sigma
