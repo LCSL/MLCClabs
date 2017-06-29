@@ -75,7 +75,7 @@ Yts] = MixGauss(...); </font>
 Analysis</font></h2>
 <ul>
 	<li><p style="margin-bottom: 0in"><strong><font face="Verdana">2.A</font></strong><strong>
-	</strong><font face="Verdana">Compute the data principal components
+	</strong><font face="Verdana">Compute the 10 principal components of your noisy training data.
 	(see </font><font face="Courier, monospace">help PCA</font><font face="Verdana">)</font></p>
 	</li><li><p style="margin-bottom: 0in"><strong><font face="Verdana">2.B</font></strong>
 	<font face="Verdana">Plot the first two components of X_proj</font>
@@ -88,8 +88,7 @@ Analysis</font></h2>
 	<p style="margin-bottom: 0in"><a name="__DdeLink__28_2095450872"></a><a name="__DdeLink__34_1406087933"></a>
 	<font face="Courier, monospace">scatter3(X_proj(:,1), X_proj(:,2),
 	X_proj(:,3), 50, Ytr, 'filled');</font></p>
-	<p style="margin-bottom: 0in"><font face="Verdana">Reason on the
-	meaning of the results you are obtaining</font>
+	<p style="margin-bottom: 0in"><font face="Verdana">What is the meaning of these results?</font>
 	</p>
 	</li><li><p style="margin-bottom: 0in"><a name="__DdeLink__30_2095450872"></a>
 	<strong><font face="Verdana">2.D </font></strong><font face="Verdana">Display
@@ -102,7 +101,7 @@ Analysis</font></h2>
 	</li><li><p style="margin-bottom: 0in"><a name="__DdeLink__34_2095450872"></a>
 	<font face="Verdana"><b>2.E</b></font> <font face="Verdana">Repeat
 	the above steps</font> <font face="Verdana">with dataset generated
-	using different sigma_noise (0, 0.01, </font><font face="Verdana, sans-serif">0.1,
+	using different sigma_noise (</font><font face="Verdana, sans-serif">0, 0.01, 0.1,
 	0.5, 0.7,</font> <font face="Verdana, sans-serif">1, 1.2, 1.4, 1.6,
 	2). To what extent data visualization by PCA is affected by the
 	noise?</font></p>
@@ -115,7 +114,7 @@ Variable selection</font></h2>
 	the data generated in section 1. S</font><font face="Verdana">tandardize
 	the data matrix, so that each column has mean 0 and standard
 	deviation 1<br><br></font><font face="Courier New, Courier, monospace">m=mean(Xtr);
-	(see "help mean", it computes the mean for each column)</font></p>
+	% (see "help mean", it computes the mean for each column)</font></p>
 	<p style="margin-bottom: 0in"><font face="Courier New, Courier, monospace">s
 	= std(Xtr);<br>for i = 1:2*N<br>    Xtr(i,:) = Xtr(i,:) - m;<br>end<br>for
 	i = 1:2*N<br>	    Xtr(i,:) = Xtr(i,:) ./ s;<br>end</font></p>

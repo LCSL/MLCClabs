@@ -14,7 +14,8 @@ function [V, d, X_proj] = PCA(X, k)
     n = size(X,1);
     [V, D] = eigs(X' * X/n, k);
     d = diag(D);
-    d = d.*(d>0);
+    d = d.*(d>0); % There is no negative eigenvalue because X' X is 
+                  % positive semi-definite
     [d,I] = sort(d , 'descend');
     V = V(:,I);
     X_proj = X*V;
